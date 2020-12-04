@@ -1,0 +1,116 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: TLSOption
+metadata:
+  name: mintls12
+  namespace: sthlmio
+spec:
+  minVersion: VersionTLS12
+  curvePreferences:
+    - secp521r1
+    - secp384r1
+  sniStrict: true
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: security
+  namespace: sthlmio
+spec:
+  headers:
+    frameDeny: true
+    sslRedirect: true
+    browserXssFilter: true
+    contentTypeNosniff: true
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: hsts
+  namespace: sthlmio
+spec:
+  headers:
+    stsIncludeSubdomains: true
+    stsPreload: false
+    stsSeconds: 31536000
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: l5d-header-middleware
+  namespace: sthlmio
+spec:
+  headers:
+    customRequestHeaders:
+      l5d-dst-override: "web.sthlmio.svc.cluster.local:8000"
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect
+  namespace: sthlmio
+spec:
+  redirectRegex:
+    regex: ^https://(.*)/(.*)
+    replacement: https://sthlm.io/${2}
+    permanent: true
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: remove-headers
+  namespace: sthlmio
+spec:
+  headers:
+    customResponseHeaders:
+      Server: ""
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: https
+  namespace: sthlmio
+spec:
+  tls:
+    options:
+      name: mintls12
+      namespace: sthlmio
+    secretName: certificate-secret
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`sthlm.io`)
+      middlewares:
+        - name: l5d-header-middleware
+        - name: security
+        - name: hsts
+        - name: remove-headers
+      kind: Rule
+      services:
+        - kind: Service
+          name: web
+          port: 8000
+    - match: Host(`www.sthlm.io`)
+      kind: Rule
+      services:
+      - kind: TraefikService
+        name: noop@internal
+      middlewares:
+      - name: hsts
+      - name: redirect
+    - match: Host(`stockholm.io`)
+      kind: Rule
+      services:
+      - kind: TraefikService
+        name: noop@internal
+      middlewares:
+      - name: hsts
+      - name: redirect
+    - match: Host(`www.stockholm.io`)
+      kind: Rule
+      services:
+      - kind: TraefikService
+        name: noop@internal
+      middlewares:
+      - name: hsts
+      - name: redirect
