@@ -1,4 +1,3 @@
----
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
@@ -7,10 +6,10 @@ metadata:
 spec:
   secretName: certificate-secret
   dnsNames:
-    - sthlm.io
-    - www.sthlm.io
-    - stockholm.io
-    - www.stockholm.io
+  - sthlm.io
+  - www.sthlm.io
+  - stockholm.io
+  - www.stockholm.io
   issuerRef:
     name: cluster-issuer-cloudflare-prod
     kind: ClusterIssuer

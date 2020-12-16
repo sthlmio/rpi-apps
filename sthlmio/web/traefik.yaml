@@ -1,4 +1,3 @@
----
 apiVersion: traefik.containo.us/v1alpha1
 kind: TLSOption
 metadata:
@@ -7,8 +6,8 @@ metadata:
 spec:
   minVersion: VersionTLS12
   curvePreferences:
-    - secp521r1
-    - secp384r1
+  - secp521r1
+  - secp384r1
   sniStrict: true
 ---
 apiVersion: traefik.containo.us/v1alpha1
@@ -77,40 +76,40 @@ spec:
       namespace: sthlmio
     secretName: certificate-secret
   entryPoints:
-    - websecure
+  - websecure
   routes:
-    - match: Host(`sthlm.io`)
-      middlewares:
-        - name: l5d-header-middleware
-        - name: security
-        - name: hsts
-        - name: remove-headers
-      kind: Rule
-      services:
-        - kind: Service
-          name: web
-          port: 8000
-    - match: Host(`www.sthlm.io`)
-      kind: Rule
-      services:
-      - kind: TraefikService
-        name: noop@internal
-      middlewares:
-      - name: hsts
-      - name: redirect
-    - match: Host(`stockholm.io`)
-      kind: Rule
-      services:
-      - kind: TraefikService
-        name: noop@internal
-      middlewares:
-      - name: hsts
-      - name: redirect
-    - match: Host(`www.stockholm.io`)
-      kind: Rule
-      services:
-      - kind: TraefikService
-        name: noop@internal
-      middlewares:
-      - name: hsts
-      - name: redirect
+  - match: Host(`sthlm.io`)
+    middlewares:
+    - name: l5d-header-middleware
+    - name: security
+    - name: hsts
+    - name: remove-headers
+    kind: Rule
+    services:
+    - kind: Service
+      name: web
+      port: 8000
+  - match: Host(`www.sthlm.io`)
+    kind: Rule
+    services:
+    - kind: TraefikService
+      name: noop@internal
+    middlewares:
+    - name: hsts
+    - name: redirect
+  - match: Host(`stockholm.io`)
+    kind: Rule
+    services:
+    - kind: TraefikService
+      name: noop@internal
+    middlewares:
+    - name: hsts
+    - name: redirect
+  - match: Host(`www.stockholm.io`)
+    kind: Rule
+    services:
+    - kind: TraefikService
+      name: noop@internal
+    middlewares:
+    - name: hsts
+    - name: redirect
