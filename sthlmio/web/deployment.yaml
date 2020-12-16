@@ -24,7 +24,7 @@ spec:
                       - web
               topologyKey: kubernetes.io/hostname
       containers:
-        - image: sthlmio/web:e9c554e6758f56e8a7ac4fb6a3f2f4b6ace47f9e
+        - image: sthlmio/web:v1.0.11 # {"$imagepolicy": "sthlmio:web-policy"}
           imagePullPolicy: IfNotPresent
           name: web
           ports:

@@ -1,0 +1,37 @@
+---
+apiVersion: image.toolkit.fluxcd.io/v1alpha1
+kind: ImageRepository
+metadata:
+  name: web-image
+  namespace: sthlmio
+spec:
+  image: sthlmio/web
+---
+apiVersion: image.toolkit.fluxcd.io/v1alpha1
+kind: ImagePolicy
+metadata:
+  name: web-policy
+  namespace: sthlmio
+spec:
+  imageRepositoryRef:
+    name: web-image
+  policy:
+    semver:
+      range: v1.0.x
+---
+# apiVersion: image.toolkit.fluxcd.io/v1alpha1
+# kind: ImageUpdateAutomation
+# metadata:
+#   name: web-update
+#   namespace: sthlmio
+# spec:
+#   interval: 5m
+#   checkout:
+#     gitRepositoryRef:
+#       name: rpi-apps
+#       namespace: flux-system
+#   update:
+#     setters: {}
+#   commit:
+#     authorName: UpdateBot
+#     authorEmail: bot@sthlm.io
