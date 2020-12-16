@@ -29,7 +29,6 @@ spec:
   checkout:
     gitRepositoryRef:
       name: rpi-apps
-      namespace: flux-system
   update:
     setters: {}
   commit:
