@@ -19,19 +19,19 @@ spec:
     semver:
       range: v1.0.x
 ---
-# apiVersion: image.toolkit.fluxcd.io/v1alpha1
-# kind: ImageUpdateAutomation
-# metadata:
-#   name: web-update
-#   namespace: sthlmio
-# spec:
-#   interval: 5m
-#   checkout:
-#     gitRepositoryRef:
-#       name: rpi-apps
-#       namespace: flux-system
-#   update:
-#     setters: {}
-#   commit:
-#     authorName: UpdateBot
-#     authorEmail: bot@sthlm.io
+apiVersion: image.toolkit.fluxcd.io/v1alpha1
+kind: ImageUpdateAutomation
+metadata:
+  name: web-update
+  namespace: sthlmio
+spec:
+  interval: 5m
+  checkout:
+    gitRepositoryRef:
+      name: rpi-apps
+      namespace: flux-system
+  update:
+    setters: {}
+  commit:
+    authorName: UpdateBot
+    authorEmail: bot@sthlm.io
