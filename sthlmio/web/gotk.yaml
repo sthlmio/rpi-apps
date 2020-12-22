@@ -17,4 +17,4 @@ spec:
     name: web-image
   policy:
     semver:
-      range: v1.0.x
+      range: 1.0.x
