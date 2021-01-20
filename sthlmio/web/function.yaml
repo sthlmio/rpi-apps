@@ -1,4 +1,3 @@
----
 apiVersion: openfaas.com/v1
 kind: Function
 metadata:
@@ -27,4 +26,4 @@ spec:
     MAIL_RECIPIENT: "hello@sthlm.io"
     MAIL_SUBJECT: "sthlm.io"
   secrets:
-    - sthlmio-faas-web-mail
+  - sthlmio-faas-web-mail
