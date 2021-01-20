@@ -7,7 +7,7 @@ metadata:
 spec:
   readOnlyRootFilesystem: true
   name: faas-web-mail
-  image: sthlmio/faas-web-mail:1.0.6
+  image: sthlmio/faas-web-mail:1.0.6 # {"$imagepolicy": "flux-system:sthlmio-faas-web-mail"}
   # annotations:
   #   com.openfaas.health.http.initialDelay: 2s
   #   com.openfaas.health.http.path: /healthz
