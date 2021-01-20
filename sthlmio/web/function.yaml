@@ -1,0 +1,30 @@
+---
+apiVersion: openfaas.com/v1
+kind: Function
+metadata:
+  name: faas-web-mail
+  namespace: openfaas-fn
+spec:
+  readOnlyRootFilesystem: true
+  name: faas-web-mail
+  image: sthlmio/faas-web-mail:0.0.1
+  # annotations:
+  #   com.openfaas.health.http.initialDelay: 2s
+  #   com.openfaas.health.http.path: /healthz
+  labels:
+    com.openfaas.scale.min: "3"
+    com.openfaas.scale.max: "3"
+  # limits:
+  #   cpu: "200m"
+  #   memory: "256Mi"
+  # requests:
+  #   cpu: "10m"
+  #   memory: "128Mi"
+  environment:
+    ACCESS_CONTROL_ALLOW_ORIGIN: "https://sthlm.io"
+    MAILGUN_API_BASE: "https://api.eu.mailgun.net/v3"
+    MAILGUN_DOMAIN: "mg.sthlm.io"
+    MAIL_RECIPIENT: "hello@sthlm.io"
+    MAIL_SUBJECT: "sthlm.io"
+  secrets:
+    - sthlmio-faas-web-mail
