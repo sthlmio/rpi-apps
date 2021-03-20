@@ -17,9 +17,9 @@ metadata:
   namespace: sthlmio
 spec:
   headers:
-    frameDeny: true
+    frameDeny: false
     sslRedirect: true
-    browserXssFilter: true
+    browserXssFilter: false
     contentTypeNosniff: false
 ---
 apiVersion: traefik.containo.us/v1alpha1
