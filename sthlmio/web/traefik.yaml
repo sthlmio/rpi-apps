@@ -17,10 +17,10 @@ metadata:
   namespace: sthlmio
 spec:
   headers:
-    frameDeny: false
+    frameDeny: true
     sslRedirect: true
-    browserXssFilter: false
-    contentTypeNosniff: false
+    browserXssFilter: true
+    contentTypeNosniff: true
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
