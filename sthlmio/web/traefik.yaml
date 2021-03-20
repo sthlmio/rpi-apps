@@ -20,7 +20,7 @@ spec:
     frameDeny: true
     sslRedirect: true
     browserXssFilter: true
-    contentTypeNosniff: true
+    contentTypeNosniff: false
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
