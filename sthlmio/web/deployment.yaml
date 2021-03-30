@@ -57,6 +57,6 @@ spec:
           preStop:
             exec:
               command:
-                - /bin/bash
-                - -c
-                - sleep 10
+              - /bin/bash
+              - -c
+              - sleep 10
