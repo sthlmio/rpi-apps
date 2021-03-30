@@ -12,7 +12,7 @@ spec:
       labels:
         app: web
       annotations:
-        config.alpha.linkerd.io/proxy-wait-before-exit-seconds: "20"
+        config.alpha.linkerd.io/proxy-wait-before-exit-seconds: "25"
     spec:
       affinity:
         podAntiAffinity:
@@ -56,4 +56,4 @@ spec:
         lifecycle:
           preStop:
             exec:
-              command: ["sleep", "10"]
+              command: ["sleep", "20"]
