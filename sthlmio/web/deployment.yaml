@@ -11,6 +11,8 @@ spec:
     metadata:
       labels:
         app: web
+      annotations:
+        config.alpha.linkerd.io/proxy-wait-before-exit-seconds: 30
     spec:
       affinity:
         podAntiAffinity:
@@ -54,4 +56,7 @@ spec:
         lifecycle:
           preStop:
             exec:
-              command: ["sleep", "30"]
+              command:
+                - /bin/bash
+                - -c
+                - sleep 20
