@@ -12,8 +12,9 @@ spec:
       labels:
         app: web
       annotations:
-        config.alpha.linkerd.io/proxy-wait-before-exit-seconds: "25"
+        config.alpha.linkerd.io/proxy-wait-before-exit-seconds: "40"
     spec:
+      terminationGracePeriodSeconds: 60
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -41,19 +42,30 @@ spec:
           httpGet:
             path: /ready
             port: 8001
-          initialDelaySeconds: 5
+          failureThreshold: 1
+          initialDelaySeconds: 10
           periodSeconds: 1
           successThreshold: 1
-          failureThreshold: 1
+          timeoutSeconds: 1
         livenessProbe:
           httpGet:
             path: /ready
             port: 8001
-          initialDelaySeconds: 10
+          failureThreshold: 3
+          initialDelaySeconds: 15
           periodSeconds: 10
           successThreshold: 1
-          failureThreshold: 1
+          timeoutSeconds: 1
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1000
+          runAsGroup: 1000
+          readOnlyRootFilesystem: true
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
         lifecycle:
           preStop:
             exec:
-              command: ["sleep", "20"]
+              command: ["sleep", "30"]
