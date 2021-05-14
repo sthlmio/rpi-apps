@@ -1,4 +1,8 @@
-### Create a sealed secret
+# rpi-apps
+
+GitOps repo for applications running on our Raspberry Pi Kubernetes cluster.
+
+## Create a sealed secret
 
 ```
 kubectl -n <namespace> create secret generic <secret name> --dry-run -o json \
