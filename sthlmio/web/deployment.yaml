@@ -18,45 +18,45 @@ spec:
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-              - key: app
-                operator: In
-                values:
-                - web
-            topologyKey: kubernetes.io/hostname
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - web
+              topologyKey: kubernetes.io/hostname
       containers:
-      - image: sthlmio/web:1.0.54 # {"$imagepolicy": "flux-system:sthlmio-web"}
-        imagePullPolicy: IfNotPresent
-        name: web
-        ports:
-        - containerPort: 8000
-        resources:
-          requests:
-            memory: 10Mi
-            cpu: 10m
-          limits:
-            memory: 50Mi
-            cpu: 50m
-        readinessProbe:
-          httpGet:
-            path: /ready
-            port: 8001
-          failureThreshold: 1
-          initialDelaySeconds: 10
-          periodSeconds: 1
-          successThreshold: 1
-          timeoutSeconds: 1
-        livenessProbe:
-          httpGet:
-            path: /ready
-            port: 8001
-          failureThreshold: 3
-          initialDelaySeconds: 15
-          periodSeconds: 10
-          successThreshold: 1
-          timeoutSeconds: 1
-        lifecycle:
-          preStop:
-            exec:
-              command: ["sleep", "30"]
+        - image: sthlmio/web:1.0.56 # {"$imagepolicy": "flux-system:sthlmio-web"}
+          imagePullPolicy: IfNotPresent
+          name: web
+          ports:
+            - containerPort: 8000
+          resources:
+            requests:
+              memory: 10Mi
+              cpu: 10m
+            limits:
+              memory: 50Mi
+              cpu: 50m
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 8001
+            failureThreshold: 1
+            initialDelaySeconds: 10
+            periodSeconds: 1
+            successThreshold: 1
+            timeoutSeconds: 1
+          livenessProbe:
+            httpGet:
+              path: /ready
+              port: 8001
+            failureThreshold: 3
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          lifecycle:
+            preStop:
+              exec:
+                command: ["sleep", "30"]
