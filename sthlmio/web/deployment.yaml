@@ -26,7 +26,7 @@ spec:
                       - web
               topologyKey: kubernetes.io/hostname
       containers:
-        - image: sthlmio/web:1.0.67 # {"$imagepolicy": "flux-system:sthlmio-web"}
+        - image: sthlmio/web:1.0.70 # {"$imagepolicy": "flux-system:sthlmio-web"}
           imagePullPolicy: IfNotPresent
           name: web
           ports:
