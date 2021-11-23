@@ -15,18 +15,13 @@ spec:
         config.alpha.linkerd.io/proxy-wait-before-exit-seconds: "40"
     spec:
       terminationGracePeriodSeconds: 60
-      affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                  - key: app
-                    operator: In
-                    values:
-                      - web
-              topologyKey: kubernetes.io/hostname
+      topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: ScheduleAnyway
+        labelSelector:
+          matchLabels:
+            app: web
       containers:
         - image: sthlmio/web:1.0.77 # {"$imagepolicy": "flux-system:sthlmio-web"}
           imagePullPolicy: IfNotPresent
