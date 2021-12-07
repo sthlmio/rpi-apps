@@ -16,14 +16,14 @@ spec:
     spec:
       terminationGracePeriodSeconds: 60
       topologySpreadConstraints:
-      - maxSkew: 1
-        topologyKey: kubernetes.io/hostname
-        whenUnsatisfiable: ScheduleAnyway
-        labelSelector:
-          matchLabels:
-            app: web
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app: web
       containers:
-        - image: sthlmio/web:1.0.77 # {"$imagepolicy": "flux-system:sthlmio-web"}
+        - image: sthlmio/web:1.0.83 # {"$imagepolicy": "flux-system:sthlmio-web"}
           imagePullPolicy: IfNotPresent
           name: web
           ports:
