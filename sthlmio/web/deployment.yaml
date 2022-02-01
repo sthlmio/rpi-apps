@@ -16,44 +16,44 @@ spec:
     spec:
       terminationGracePeriodSeconds: 60
       topologySpreadConstraints:
-        - maxSkew: 1
-          topologyKey: kubernetes.io/hostname
-          whenUnsatisfiable: ScheduleAnyway
-          labelSelector:
-            matchLabels:
-              app: web
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: ScheduleAnyway
+        labelSelector:
+          matchLabels:
+            app: web
       containers:
-        - image: sthlmio/web:1.0.91 # {"$imagepolicy": "flux-system:sthlmio-web"}
-          imagePullPolicy: IfNotPresent
-          name: web
-          ports:
-            - containerPort: 8000
-          resources:
-            requests:
-              memory: 10Mi
-              cpu: 10m
-            limits:
-              memory: 50Mi
-              cpu: 50m
-          readinessProbe:
-            httpGet:
-              path: /ready
-              port: 8001
-            failureThreshold: 1
-            initialDelaySeconds: 10
-            periodSeconds: 1
-            successThreshold: 1
-            timeoutSeconds: 1
-          livenessProbe:
-            httpGet:
-              path: /ready
-              port: 8001
-            failureThreshold: 3
-            initialDelaySeconds: 15
-            periodSeconds: 10
-            successThreshold: 1
-            timeoutSeconds: 1
-          lifecycle:
-            preStop:
-              exec:
-                command: ["sleep", "30"]
+      - image: sthlmio/web:1.0.93 # {"$imagepolicy": "flux-system:sthlmio-web"}
+        imagePullPolicy: IfNotPresent
+        name: web
+        ports:
+        - containerPort: 8000
+        resources:
+          requests:
+            memory: 10Mi
+            cpu: 10m
+          limits:
+            memory: 50Mi
+            cpu: 50m
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8001
+          failureThreshold: 1
+          initialDelaySeconds: 10
+          periodSeconds: 1
+          successThreshold: 1
+          timeoutSeconds: 1
+        livenessProbe:
+          httpGet:
+            path: /ready
+            port: 8001
+          failureThreshold: 3
+          initialDelaySeconds: 15
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        lifecycle:
+          preStop:
+            exec:
+              command: ["sleep", "30"]
