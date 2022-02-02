@@ -38,14 +38,14 @@ spec:
     fqdn: www.sthlm.io
     tls:
       secretName: certificate-secret
-    requestRedirectPolicy:
-      hostname: sthlm.io
-      statusCode: 308
   routes:
   - requestHeadersPolicy:
       set:
       - name: l5d-dst-override
         value: web.sthlmio.svc.cluster.local:8000
+    requestRedirectPolicy:
+      hostname: sthlm.io
+      statusCode: 308
 ---
 apiVersion: projectcontour.io/v1
 kind: HTTPProxy
@@ -57,14 +57,14 @@ spec:
     fqdn: www.stockholm.io
     tls:
       secretName: certificate-secret
-    requestRedirectPolicy:
-      hostname: sthlm.io
-      statusCode: 308
   routes:
   - requestHeadersPolicy:
       set:
       - name: l5d-dst-override
         value: web.sthlmio.svc.cluster.local:8000
+    requestRedirectPolicy:
+      hostname: sthlm.io
+      statusCode: 308
 ---
 apiVersion: projectcontour.io/v1
 kind: HTTPProxy
@@ -76,11 +76,11 @@ spec:
     fqdn: stockholm.io
     tls:
       secretName: certificate-secret
-    requestRedirectPolicy:
-      hostname: sthlm.io
-      statusCode: 308
   routes:
   - requestHeadersPolicy:
       set:
       - name: l5d-dst-override
         value: web.sthlmio.svc.cluster.local:8000
+    requestRedirectPolicy:
+      hostname: sthlm.io
+      statusCode: 308
