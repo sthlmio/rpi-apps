@@ -45,7 +45,7 @@ spec:
         value: web.sthlmio.svc.cluster.local:8000
     requestRedirectPolicy:
       hostname: sthlm.io
-      statusCode: 308
+      statusCode: 301
 ---
 apiVersion: projectcontour.io/v1
 kind: HTTPProxy
@@ -64,7 +64,7 @@ spec:
         value: web.sthlmio.svc.cluster.local:8000
     requestRedirectPolicy:
       hostname: sthlm.io
-      statusCode: 308
+      statusCode: 301
 ---
 apiVersion: projectcontour.io/v1
 kind: HTTPProxy
@@ -83,4 +83,4 @@ spec:
         value: web.sthlmio.svc.cluster.local:8000
     requestRedirectPolicy:
       hostname: sthlm.io
-      statusCode: 308
+      statusCode: 301
