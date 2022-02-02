@@ -1,0 +1,86 @@
+---
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  name: sthlm-io
+  namespace: sthlmio
+spec:
+  virtualhost:
+    fqdn: sthlm.io
+    tls:
+      secretName: certificate-secret
+  routes:
+  - requestHeadersPolicy:
+      set:
+      - name: l5d-dst-override
+        value: web.sthlmio.svc.cluster.local:8000
+    services:
+    - name: web
+      port: 8000
+      responseHeadersPolicy:
+        set:
+        - name: Strict-Transport-Security
+          value: max-age=31536000; includeSubDomains
+        - name: X-Content-Type-Options
+          value: nosniff
+        - name: X-Frame-Options
+          value: DENY
+        - name: X-XSS-Protection
+          value: 1; mode=block
+---
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  name: www-sthlm-io
+  namespace: sthlmio
+spec:
+  virtualhost:
+    fqdn: www.sthlm.io
+    tls:
+      secretName: certificate-secret
+    requestRedirectPolicy:
+      hostname: sthlm.io
+      statusCode: 308
+  routes:
+  - requestHeadersPolicy:
+      set:
+      - name: l5d-dst-override
+        value: web.sthlmio.svc.cluster.local:8000
+---
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  name: www-stockholm-io
+  namespace: sthlmio
+spec:
+  virtualhost:
+    fqdn: www.stockholm.io
+    tls:
+      secretName: certificate-secret
+    requestRedirectPolicy:
+      hostname: sthlm.io
+      statusCode: 308
+  routes:
+  - requestHeadersPolicy:
+      set:
+      - name: l5d-dst-override
+        value: web.sthlmio.svc.cluster.local:8000
+---
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  name: stockholm-io
+  namespace: sthlmio
+spec:
+  virtualhost:
+    fqdn: stockholm.io
+    tls:
+      secretName: certificate-secret
+    requestRedirectPolicy:
+      hostname: sthlm.io
+      statusCode: 308
+  routes:
+  - requestHeadersPolicy:
+      set:
+      - name: l5d-dst-override
+        value: web.sthlmio.svc.cluster.local:8000

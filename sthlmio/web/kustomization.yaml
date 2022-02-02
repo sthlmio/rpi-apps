@@ -9,3 +9,4 @@ resources:
   - ./sealed-secret.yaml
   - ./service.yaml
   - ./traefik.yaml
+  - ./contour.yaml
