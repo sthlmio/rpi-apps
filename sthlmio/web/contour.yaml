@@ -10,23 +10,9 @@ spec:
     tls:
       secretName: certificate-secret
   routes:
-  - requestHeadersPolicy:
-      set:
-      - name: l5d-dst-override
-        value: web.sthlmio.svc.cluster.local:8000
-    services:
+  - services:
     - name: web
       port: 8000
-      responseHeadersPolicy:
-        set:
-        - name: Strict-Transport-Security
-          value: max-age=31536000; includeSubDomains
-        - name: X-Content-Type-Options
-          value: nosniff
-        - name: X-Frame-Options
-          value: DENY
-        - name: X-XSS-Protection
-          value: 1; mode=block
 ---
 apiVersion: projectcontour.io/v1
 kind: HTTPProxy
@@ -39,11 +25,7 @@ spec:
     tls:
       secretName: certificate-secret
   routes:
-  - requestHeadersPolicy:
-      set:
-      - name: l5d-dst-override
-        value: web.sthlmio.svc.cluster.local:8000
-    requestRedirectPolicy:
+  - requestRedirectPolicy:
       hostname: sthlm.io
       statusCode: 301
 ---
@@ -58,11 +40,7 @@ spec:
     tls:
       secretName: certificate-secret
   routes:
-  - requestHeadersPolicy:
-      set:
-      - name: l5d-dst-override
-        value: web.sthlmio.svc.cluster.local:8000
-    requestRedirectPolicy:
+  - requestRedirectPolicy:
       hostname: sthlm.io
       statusCode: 301
 ---
@@ -77,10 +55,6 @@ spec:
     tls:
       secretName: certificate-secret
   routes:
-  - requestHeadersPolicy:
-      set:
-      - name: l5d-dst-override
-        value: web.sthlmio.svc.cluster.local:8000
-    requestRedirectPolicy:
+  - requestRedirectPolicy:
       hostname: sthlm.io
       statusCode: 301
