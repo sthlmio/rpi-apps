@@ -23,7 +23,7 @@ spec:
           matchLabels:
             app: web
       containers:
-      - image: sthlmio/web:1.0.99 # {"$imagepolicy": "flux-system:sthlmio-web"}
+      - image: sthlmio/web:1.0.101 # {"$imagepolicy": "flux-system:sthlmio-web"}
         imagePullPolicy: IfNotPresent
         name: web
         ports:
